@@ -1,6 +1,4 @@
 .env
 *.ipynb
 *.pyc
-alembic/
-alembic.ini
 node_modules/
