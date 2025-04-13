@@ -37,7 +37,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     username = Column(String(100), unique=True)
-    hashed_password = Column(String(50))
+    hashed_password = Column(String(100)) # requires 60 for hashed password
     role_id = Column(Integer, ForeignKey('roles.id')) # Unique role for each unique user
     role = relationship("Role", back_populates="users")
     # role and not roles; as User can't have multiple roles as association table is not present
