@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.models import Role, Permission
+from app.database.init_db import init_database
+from app.models.models import Role, Permission, User
 from app.database.database import SessionLocal
 
 def create_if_not_exists(session, model, **kwargs):
@@ -70,8 +71,26 @@ def seed():
                 role.permissions.append(perm)
 
         db.commit()
+    
+    # Create default admin user
+    admin_role = db.query(Role).filter_by(name="admin").first()
+    existing_admin = db.query(User).filter_by(username="pascal").first()
 
+    if not existing_admin:
+        hashed_password = '$2b$12$nE8PK/1chkfpDrFYGTuMNOOPicOAqFsD5qvNYrDUf6VaRqOl2oF6q' # hased password
+        admin_user = User(
+            username="pascal",
+            hashed_password=hashed_password,
+            role=admin_role
+        )
+        db.add(admin_user)
+        db.commit()
+        db.refresh(admin_user)
+        print("Admin user 'pascal' created.")
+    else:
+        print("Admin user 'pascal' already exists.")
     db.close()
 
 if __name__ == "__main__":
-    seed()
+    init_database() # alembic requires to have table first to migrate
+    seed() # once migration is completed, we dont require to initialize tables again!
