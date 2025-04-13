@@ -23,13 +23,38 @@ def seed():
 
     # customer can browse other products, place order, status of order, order list, cancel order, review product
 
-    # admin add, update, delete any products, review, browse products, list of products order of both customer and seller, update order status, and other all permissions
-    permissions = {
+    # admin add, update, delete any products, review, browse products, list of products order of both customer and seller, 
+    # update order status, and other all permissions (delete any user and change roles)
+    permissions = permissions = {
         "admin": [
+            "browse_products",
+            "add_product",
+            "update_any_product",
+            "delete_any_product",
+            "delete_any_review",
+            "view_all_orders",
+            "update_order_status",
+            "view_users",
+            "delete_user"
+            "assign_roles"
         ],
         "seller": [
+            "browse_products",
+            "add_product",
+            "update_own_product",
+            "delete_own_product",
+            "delete_review_on_own_product",
+            "view_orders_on_own_products",
+            "update_order_status"
         ],
         "customer": [
+            "browse_products",
+            "place_order",
+            "cancel_order",
+            "view_own_orders",
+            "track_order_status",
+            "review_product",
+            "delete_own_review"
         ]
     }
 
