@@ -92,5 +92,6 @@ def seed():
     db.close()
 
 if __name__ == "__main__":
-    init_database() # alembic requires to have table first to migrate
+    # init_database() # alembic creates tables and schemas; this is not required!
+    # use alembic to INITIALIZE SCHEMA, then use seed.py
     seed() # once migration is completed, we dont require to initialize tables again!
